@@ -32,15 +32,24 @@ func (b *Block) ascii_representation() string {
 }
 
 type World struct {
-	width       int
-	breadth     int
-	depth       int
-	trueWidth   int
-	trueBreadth int
-	trueDepth   int
-	blocks      []Block   // list of all blocks
-	dirOffset   [6]int    // distance to each cardinal direction
-	diagOffset  [12]Block // distance to each diagonal direction
+	width      int
+	breadth    int
+	depth      int
+	blocks     []Block   // list of all blocks
+	dirOffset  [6]int    // distance to each cardinal direction
+	diagOffset [12]Block // distance to each diagonal direction
+}
+
+func (w *World) trueWidth() int {
+	return w.width + 2
+}
+
+func (w *World) trueBreadth() int {
+	return w.breadth + 2
+}
+
+func (w *World) trueDepth() int {
+	return w.depth + 2
 }
 
 func (w *World) createWorld(size_x int, size_y int, size_z int) {
@@ -48,19 +57,15 @@ func (w *World) createWorld(size_x int, size_y int, size_z int) {
 	w.breadth = size_y
 	w.depth = size_z
 
-	w.trueWidth = w.width + 2
-	w.trueBreadth = w.breadth + 2
-	w.trueDepth = w.depth + 2
-
-	numberBlocks := w.trueWidth * w.trueBreadth * w.trueDepth
+	numberBlocks := w.trueWidth() * w.trueBreadth() * w.trueDepth()
 
 	// Setup offsets
-	w.dirOffset[0] = 1            //w
-	w.dirOffset[1] = -1           //e
-	w.dirOffset[2] = w.trueWidth  //s
-	w.dirOffset[3] = -w.trueWidth //n
-	w.dirOffset[4] = w.trueWidth * w.trueBreadth
-	w.dirOffset[5] = -(w.trueWidth * w.trueBreadth)
+	w.dirOffset[0] = 1              //w
+	w.dirOffset[1] = -1             //e
+	w.dirOffset[2] = w.trueWidth()  //s
+	w.dirOffset[3] = -w.trueWidth() //n
+	w.dirOffset[4] = w.trueWidth() * w.trueBreadth()
+	w.dirOffset[5] = -(w.trueWidth() * w.trueBreadth())
 
 	w.blocks = make([]Block, numberBlocks)
 
@@ -74,16 +79,16 @@ func (w *World) getPlane(z_level int) (level []Block, err error) {
 	if z_level < 1 || z_level > w.depth {
 		return nil, errors.New("no such z level")
 	}
-	begin := w.trueWidth * w.trueDepth
+	begin := w.trueWidth() * w.trueDepth()
 	return w.blocks[begin : begin+w.dirOffset[4]], nil
 }
 
 // Print out everything on a certain level, mostly for debugging
 func (w *World) showTruePlane(z_level int) {
 	plane, _ := w.getPlane(z_level)
-	for x := 0; x < w.trueWidth; x++ {
-		for y := 0; y < w.trueBreadth; y++ {
-			fmt.Printf(plane[(y*w.trueWidth)+x].ascii_representation())
+	for x := 0; x < w.trueWidth(); x++ {
+		for y := 0; y < w.trueBreadth(); y++ {
+			fmt.Printf(plane[(y*w.trueWidth())+x].ascii_representation())
 		}
 		fmt.Printf("\n")
 	}
