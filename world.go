@@ -36,7 +36,6 @@ type World struct {
 	breadth    int
 	depth      int
 	blocks     []Block   // list of all blocks
-	dirOffset  [6]int    // distance to each cardinal direction
 	diagOffset [12]Block // distance to each diagonal direction
 }
 
@@ -52,20 +51,30 @@ func (w *World) trueDepth() int {
 	return w.depth + 2
 }
 
+func (w *World) dirOffset(dir rune) int {
+	switch dir {
+	case 'w':
+		return -1
+	case 'e':
+		return 1
+	case 'n':
+		return -(w.trueWidth())
+	case 's':
+		return -(w.trueWidth())
+	case 'u':
+		return -(w.trueWidth() * w.trueBreadth())
+	case 'd':
+		return w.trueWidth() * w.trueBreadth()
+	}
+	return 0
+}
+
 func (w *World) createWorld(size_x int, size_y int, size_z int) {
 	w.width = size_x
 	w.breadth = size_y
 	w.depth = size_z
 
 	numberBlocks := w.trueWidth() * w.trueBreadth() * w.trueDepth()
-
-	// Setup offsets
-	w.dirOffset[0] = 1              //w
-	w.dirOffset[1] = -1             //e
-	w.dirOffset[2] = w.trueWidth()  //s
-	w.dirOffset[3] = -w.trueWidth() //n
-	w.dirOffset[4] = w.trueWidth() * w.trueBreadth()
-	w.dirOffset[5] = -(w.trueWidth() * w.trueBreadth())
 
 	w.blocks = make([]Block, numberBlocks)
 
@@ -80,7 +89,7 @@ func (w *World) getPlane(z_level int) (level []Block, err error) {
 		return nil, errors.New("no such z level")
 	}
 	begin := w.trueWidth() * w.trueDepth()
-	return w.blocks[begin : begin+w.dirOffset[4]], nil
+	return w.blocks[begin : begin+w.dirOffset('d')], nil
 }
 
 // Print out everything on a certain level, mostly for debugging
