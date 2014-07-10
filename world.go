@@ -12,6 +12,28 @@ const (
 	rock                     // What it says on the tin
 )
 
+type dir int
+const (
+	w dir = iota
+	e
+	n
+	s
+	u
+	d
+	nw
+	ne
+	sw
+	se
+	unw
+	une
+	usw
+	use
+	dnw
+	dne
+	dsw
+	dse
+)
+
 type Block struct {
 	bulk  material
 	floor material
@@ -36,7 +58,6 @@ type World struct {
 	breadth    int
 	depth      int
 	blocks     []Block   // list of all blocks
-	diagOffset [12]Block // distance to each diagonal direction
 }
 
 func (w *World) trueWidth() int {
@@ -51,20 +72,20 @@ func (w *World) trueDepth() int {
 	return w.depth + 2
 }
 
-func (w *World) dirOffset(dir rune) int {
-	switch dir {
-	case 'w':
+func (self *World) dirOffset(direction dir) int {
+	switch direction {
+	case w:
 		return -1
-	case 'e':
+	case e:
 		return 1
-	case 'n':
-		return -(w.trueWidth())
-	case 's':
-		return -(w.trueWidth())
-	case 'u':
-		return -(w.trueWidth() * w.trueBreadth())
-	case 'd':
-		return w.trueWidth() * w.trueBreadth()
+	case n:
+		return -(self.trueWidth())
+	case s:
+		return -(self.trueWidth())
+	case u:
+		return -(self.trueWidth() * self.trueBreadth())
+	case d:
+		return self.trueWidth() * self.trueBreadth()
 	}
 	return 0
 }

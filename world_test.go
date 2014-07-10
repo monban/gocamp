@@ -20,6 +20,7 @@ func TestShowPlane(t *testing.T) {
 
 func TestWestOffset(t *testing.T) {
 	w := factoryWorld()
+	w.showTruePlane(1)
 	// I don't know how to test these yet, perhaps I need a type representing a
 	// point on the map
 }
