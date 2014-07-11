@@ -54,22 +54,28 @@ func (b *Block) ascii_representation() string {
 }
 
 type World struct {
-	width      int
-	breadth    int
-	depth      int
+	size_x      int
+	size_y    int
+	size_z      int
 	blocks     []Block   // list of all blocks
 }
 
+type Pt struct {
+	x int
+	y int
+	z int
+}
+
 func (w *World) trueWidth() int {
-	return w.width + 2
+	return w.size_x + 2
 }
 
 func (w *World) trueBreadth() int {
-	return w.breadth + 2
+	return w.size_y + 2
 }
 
 func (w *World) trueDepth() int {
-	return w.depth + 2
+	return w.size_z + 2
 }
 
 func (self *World) dirOffset(direction dir) int {
@@ -91,9 +97,9 @@ func (self *World) dirOffset(direction dir) int {
 }
 
 func (w *World) createWorld(size_x int, size_y int, size_z int) {
-	w.width = size_x
-	w.breadth = size_y
-	w.depth = size_z
+	w.size_x = size_x
+	w.size_y = size_y
+	w.size_z = size_z
 
 	numberBlocks := w.trueWidth() * w.trueBreadth() * w.trueDepth()
 
@@ -106,7 +112,7 @@ func (w *World) createWorld(size_x int, size_y int, size_z int) {
 
 // Returns a slice containing the world at a certain z-level
 func (w *World) getPlane(z_level int) (level []Block, err error) {
-	if z_level < 1 || z_level > w.depth {
+	if z_level < 1 || z_level > w.size_z {
 		return nil, errors.New("no such z level")
 	}
 	begin := w.trueWidth() * w.trueDepth()
