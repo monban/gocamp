@@ -157,10 +157,10 @@ func (self *World) setBlock(pt Pt, blok Block) {
 	self.blocks[self.ptToIndex(pt)] = blok
 }
 
-func (self *World) fillPlane(z_level int, bulk material) {
+func (self *World) fillPlane(z_level int, blok Block) {
 	for x := 0; x < self.size_x; x++ {
 		for y := 0; y < self.size_y; y++ {
-			self.setBlock(Pt{x,y,z_level}, Block{bulk, bulk})
+			self.setBlock(Pt{x,y,z_level}, blok)
 		}
 	}
 }

@@ -45,3 +45,12 @@ func TestSetBlock(t *testing.T) {
 		t.Errorf("expected %s got %s", blok, w.getBlock(pt))
 	}
 }
+
+func TestFillPlane(t *testing.T) {
+	w:= factoryWorld()
+	blok := Block{rock,rock}
+	w.fillPlane(0, blok)
+	if w.getBlock(Pt{1,1,0}) != blok {
+		t.Errorf("expected %s got %s", blok, w.getBlock(Pt{1,1,0}))
+	}
+}
