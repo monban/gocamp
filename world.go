@@ -13,6 +13,7 @@ const (
 )
 
 type dir int
+
 const (
 	w dir = iota
 	e
@@ -54,10 +55,10 @@ func (b *Block) ascii_representation() string {
 }
 
 type World struct {
-	size_x      int
-	size_y    int
-	size_z      int
-	blocks     []Block   // list of all blocks
+	size_x int
+	size_y int
+	size_z int
+	blocks []Block // list of all blocks
 }
 
 type Pt struct {
@@ -138,14 +139,14 @@ func (self *World) ptToIndex(point Pt) int {
 	i := self.trueSizeX()
 
 	// Skip the left padding and move to the correct column
-	i += point.x+1
+	i += point.x + 1
 
 	// Move to the correct row
-	i += point.y*self.trueSizeX()
-	
+	i += point.y * self.trueSizeX()
+
 	// Move to the correct level
-	i += point.z*self.trueSizeX()*self.trueSizeY()
-	
+	i += point.z * self.trueSizeX() * self.trueSizeY()
+
 	return i
 }
 
@@ -160,7 +161,7 @@ func (self *World) setBlock(pt Pt, blok Block) {
 func (self *World) fillPlane(z_level int, blok Block) {
 	for x := 0; x < self.size_x; x++ {
 		for y := 0; y < self.size_y; y++ {
-			self.setBlock(Pt{x,y,z_level}, blok)
+			self.setBlock(Pt{x, y, z_level}, blok)
 		}
 	}
 }
