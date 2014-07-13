@@ -38,5 +38,10 @@ func TestPtToIndex(t *testing.T) {
 
 func TestSetBlock(t *testing.T) {
 	w := factoryWorld()
-	w.setBlock(Pt{1,1,1}, Block{rock,rock})
+	blok := Block{rock,rock}
+	pt := Pt{1,1,1}
+	w.setBlock(pt, blok)
+	if w.getBlock(pt) != blok {
+		t.Errorf("expected %s got %s", blok, w.getBlock(pt))
+	}
 }
