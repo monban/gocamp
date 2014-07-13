@@ -118,7 +118,7 @@ func (w *World) getPlane(z_level int) (level []Block, err error) {
 	if z_level < 1 || z_level > w.size_z {
 		return nil, errors.New("no such z level")
 	}
-	begin := w.trueSizeX() * w.trueSizeZ()
+	begin := w.trueSizeX() * w.trueSizeY() * z_level
 	return w.blocks[begin : begin+w.dirOffset(d)], nil
 }
 

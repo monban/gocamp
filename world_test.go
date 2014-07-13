@@ -55,3 +55,9 @@ func TestFillPlane(t *testing.T) {
 		t.Errorf("expected %s got %s", blok, w.getBlock(Pt{1, 1, 0}))
 	}
 }
+
+func TestFillAndShow(t *testing.T) {
+	w := factoryWorld()
+	w.fillPlane(1, Block{air, air})
+	w.showTruePlane(1)
+}
