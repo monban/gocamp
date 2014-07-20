@@ -11,4 +11,11 @@ type world struct {
 	size_y int
 	size_z int
 	terrain Terrain
+	entities []Entitier
+}
+
+func (self *world) Tick() {
+	for i, _ :=  range self.entities {
+		self.entities[i].Think()
+	}
 }
