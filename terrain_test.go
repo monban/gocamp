@@ -2,13 +2,13 @@ package gocamp
 
 import "testing"
 
-func factoryWorld() World {
-	w := createWorld(3, 6, 1)
+func factoryTerrain() Terrain {
+	w := createTerrain(3, 6, 1)
 	return w
 }
 
-func TestCreateWorld(t *testing.T) {
-	w := createWorld(3, 3, 1)
+func TestCreateTerrain(t *testing.T) {
+	w := createTerrain(3, 3, 1)
 	if &w == nil {
 		t.Errorf("expected w to be a world")
 	}
@@ -16,12 +16,12 @@ func TestCreateWorld(t *testing.T) {
 
 /*
 func TestShowPlane(t *testing.T) {
-	w := factoryWorld()
+	w := factoryTerrain()
 	w.showTruePlane(1)
 }
 
 func TestWestOffset(t *testing.T) {
-	w := factoryWorld()
+	w := factoryTerrain()
 	w.showTruePlane(1)
 	// I don't know how to test these yet, perhaps I need a type representing a
 	// point on the map
@@ -29,7 +29,7 @@ func TestWestOffset(t *testing.T) {
 */
 func TestPtToIndex(t *testing.T) {
 	// create a world with a true xyz size of 3x3x3
-	w := createWorld(1, 1, 1)
+	w := createTerrain(1, 1, 1)
 	// create a point at the one valid space
 	point := Pt{0, 0, 0}
 	if w.ptToIndex(point) != 4 {
@@ -38,7 +38,7 @@ func TestPtToIndex(t *testing.T) {
 }
 
 func TestSetBlock(t *testing.T) {
-	w := factoryWorld()
+	w := factoryTerrain()
 	blok := Block{rock, rock}
 	pt := Pt{1, 1, 1}
 	w.setBlock(pt, blok)
@@ -48,7 +48,7 @@ func TestSetBlock(t *testing.T) {
 }
 
 func TestFillPlane(t *testing.T) {
-	w := factoryWorld()
+	w := factoryTerrain()
 	blok := Block{rock, rock}
 	w.fillPlane(0, blok)
 	if w.getBlock(Pt{1, 1, 0}) != blok {
@@ -57,7 +57,7 @@ func TestFillPlane(t *testing.T) {
 }
 
 func TestFillAndShow(t *testing.T) {
-	w := factoryWorld()
+	w := factoryTerrain()
 	w.fillPlane(1, Block{air, air})
 	w.showTruePlane(1)
 }
