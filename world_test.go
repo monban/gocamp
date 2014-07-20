@@ -2,9 +2,37 @@ package gocamp
 
 import "testing"
 
+func FactoryWorld() *world {
+	return CreateWorld(4,4,1)
+}
+
 func TestCreateWorld(t *testing.T) {
-	w := CreateWorld(4,4,1)
+	w := FactoryWorld()
 	if &w == nil {
 		t.Errorf("expected w to be a world")
+	}
+}
+
+func TestAddEntities(t *testing.T) {
+	w := FactoryWorld()
+	e := new(StaticEntity)
+	w.AddEntity(e)
+	if !w.EntityExists(e) {
+		t.Errorf("entity did not get added to list")
+	}
+}
+
+func TestEntitiesThink(t *testing.T) {
+	w := FactoryWorld()
+	e := new(StaticEntity)
+	w.AddEntity(e)
+	
+	cycles := 32
+	for i := 0; i < cycles; i++ {
+		w.Tick()
+	}
+	
+	if e.cycles != cycles {
+		t.Errorf("expected cycles to be %d but got %d", cycles, e.cycles)
 	}
 }
