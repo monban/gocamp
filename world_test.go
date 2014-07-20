@@ -36,3 +36,14 @@ func TestEntitiesThink(t *testing.T) {
 		t.Errorf("expected cycles to be %d but got %d", cycles, e.cycles)
 	}
 }
+
+func TestMakeLotsOfEntities(t *testing.T) {
+	const number int = 32
+	w := FactoryWorld()
+	for i := 0; i < number; i++ {
+		w.AddEntity(new(StaticEntity))
+	}
+	if len(w.entities) == number {
+		t.Errorf("expected %d entities but got %d", number, len(w.entities))
+	}
+}
