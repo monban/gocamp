@@ -7,17 +7,17 @@ func CreateWorld(size_x int, size_y int, size_z int) *world {
 }
 
 type world struct {
-	size_x int
-	size_y int
-	size_z int
-	terrain Terrain
+	size_x   int
+	size_y   int
+	size_z   int
+	terrain  Terrain
 	entities []Entitier
 }
 
 // TODO: This function will eventually use goroutines to sync entities thinking
 // (or perhaps be run in a goroutine itself)
 func (self *world) Tick() {
-	for i, _ :=  range self.entities {
+	for i, _ := range self.entities {
 		self.entities[i].Think()
 	}
 }

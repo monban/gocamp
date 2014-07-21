@@ -2,15 +2,15 @@ package gocamp
 
 func CreateTestStaticEntity() StaticEntity {
 	se := new(StaticEntity)
-	se.location = Pt{1,1,1}
+	se.location = Pt{1, 1, 1}
 	se.cycles = 0
 	se.displayRune = '☺'
 	return *se
 }
 
 type StaticEntity struct {
-	location Pt
-	cycles int
+	location    Pt
+	cycles      int
 	displayRune rune
 }
 
