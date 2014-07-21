@@ -43,7 +43,14 @@ func TestMakeLotsOfEntities(t *testing.T) {
 	for i := 0; i < number; i++ {
 		w.AddEntity(new(StaticEntity))
 	}
-	if len(w.entities) == number {
+	if len(w.entities) != number {
 		t.Errorf("expected %d entities but got %d", number, len(w.entities))
+	}
+}
+
+func TestGetRune(t *testing.T) {
+	e := CreateTestStaticEntity()
+	if e.DisplayRune() != e.displayRune {
+		t.Errorf("expected %d got %d", e.displayRune, e.DisplayRune())
 	}
 }

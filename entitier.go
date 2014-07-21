@@ -8,4 +8,8 @@ type Entitier interface {
 	
 	// Every tick this function is called on every entity
 	Think()
+	
+	// Represent yourself as a rune
+	// TODO: Need to make this more interface independant
+	DisplayRune() rune
 }
