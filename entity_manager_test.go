@@ -8,6 +8,9 @@ func TestAddEntities(t *testing.T) {
 	if !em.Exists(e) {
 		t.Errorf("entity did not get added to list")
 	}
+	if em.Exists(new(StaticEntity)) {
+		t.Errorf("newly created entity somehow ended up in the list")
+	}
 }
 
 func TestMakeLotsOfEntities(t *testing.T) {
@@ -25,5 +28,15 @@ func TestGetRune(t *testing.T) {
 	e := CreateTestStaticEntity()
 	if e.DisplayRune() != e.displayRune {
 		t.Errorf("expected %d got %d", e.displayRune, e.DisplayRune())
+	}
+}
+
+func TestWalker(t *testing.T) {
+	e := CreateWalkerEntity(Pt{1,1,1}, e)
+	for i := 1; i < 10; i++ {
+		if (e.location != Pt{i,1,1}) {
+			t.Errorf("expected %d got %d", e.location.x, i)
+		}
+		e.Think()
 	}
 }

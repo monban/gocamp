@@ -67,6 +67,23 @@ type Pt struct {
 	z int
 }
 
+func (self *Pt) Move(direction dir) {
+	switch direction {
+	case w:
+		self.x--
+	case e:
+		self.x++
+	case n:
+		self.y--
+	case s:
+		self.y++
+	case u:
+		self.z--
+	case d:
+		self.z++
+	}
+}
+
 func (w *Terrain) trueSizeX() int {
 	return w.size_x + 2
 }

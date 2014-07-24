@@ -59,5 +59,6 @@ func TestFillPlane(t *testing.T) {
 func TestFillAndShow(t *testing.T) {
 	w := factoryTerrain()
 	w.fillPlane(1, Block{air, air})
-	w.showTruePlane(1)
+	// TODO: Assertion?
+	//w.showTruePlane(1)
 }
