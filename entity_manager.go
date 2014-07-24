@@ -18,8 +18,7 @@ func (self *EntityManager) Exists(entity Entitier) bool {
 }
 
 func (self *EntityManager) Tick() {
-	for i, _ :=  range self.entities {
+	for i, _ := range self.entities {
 		self.entities[i].Think()
 	}
 }
-

@@ -8,8 +8,8 @@ func CreateWalkerEntity(start Pt, direction dir) WalkerEntity {
 }
 
 type WalkerEntity struct {
-	location Pt
-	cycles int
+	location  Pt
+	cycles    int
 	direction dir
 }
 

@@ -40,16 +40,16 @@ type Block struct {
 	floor material
 }
 
-func (b *Block) ascii_representation() string {
+func (b *Block) ascii_representation() rune {
 	switch b.bulk {
 	case void:
-		return "*"
+		return '*'
 	case air:
-		return " "
+		return ' '
 	case soil:
-		return "."
+		return '.'
 	case rock:
-		return "x"
+		return 'x'
 	}
 	panic("invalid material found in bulk")
 }
@@ -139,12 +139,34 @@ func (w *Terrain) getPlane(z_level int) (level []Block, err error) {
 	return w.blocks[begin : begin+w.dirOffset(d)], nil
 }
 
+func blocksToRunes(blocks []Block) []rune {
+	runes := make([]rune, len(blocks))
+	for i := range blocks {
+		runes[i] = blocks[i].ascii_representation()
+	}
+	return runes
+}
+
+func (self *Terrain) LevelAsRuneArray(level int) [][]rune {
+	output := make([][]rune, self.trueSizeY())
+	plane, _ := self.getPlane(level)
+	runes := make([]rune, self.trueSizeY()*self.trueSizeX())
+	for i := range runes {
+		runes[i] = plane[i].ascii_representation()
+	}
+	for i := range output {
+		output[i] = runes[:self.trueSizeX()]
+		runes = runes[self.trueSizeX():]
+	}
+	return output
+}
+
 // Print out everything on a certain level, mostly for debugging
 func (w *Terrain) showTruePlane(z_level int) {
 	plane, _ := w.getPlane(z_level)
 	for x := 0; x < w.trueSizeX(); x++ {
 		for y := 0; y < w.trueSizeY(); y++ {
-			fmt.Printf(plane[(y*w.trueSizeX())+x].ascii_representation())
+			fmt.Print(plane[(y*w.trueSizeX())+x].ascii_representation())
 		}
 		fmt.Printf("\n")
 	}

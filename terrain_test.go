@@ -62,3 +62,27 @@ func TestFillAndShow(t *testing.T) {
 	// TODO: Assertion?
 	//w.showTruePlane(1)
 }
+
+func TestBlocksToRunes(t *testing.T) {
+	//	w := factoryTerrain()
+	//plane, _ := w.getPlane(1)
+	//	_ = blocksToRunes(plane)
+	//TODO: assertion
+}
+
+func TestLevelAsRuneArray(t *testing.T) {
+	w := factoryTerrain()
+	ra := w.LevelAsRuneArray(1)
+
+	// Test the size of the outer array
+	if len(ra) != w.trueSizeY() {
+		t.Errorf("expected outer array to be length %d, but was %d", w.trueSizeY(), len(ra))
+	}
+
+	// Test the size of the inner array
+	if len(ra[0]) != w.trueSizeX() {
+		t.Errorf("expected inner array to be length %d, but was %d", w.trueSizeX(), len(ra[0]))
+	}
+
+	// TODO: Test the content of the arrays
+}

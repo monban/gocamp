@@ -1,4 +1,5 @@
 package gocamp
+
 import "testing"
 
 func TestAddEntities(t *testing.T) {
@@ -32,9 +33,9 @@ func TestGetRune(t *testing.T) {
 }
 
 func TestWalker(t *testing.T) {
-	e := CreateWalkerEntity(Pt{1,1,1}, e)
+	e := CreateWalkerEntity(Pt{1, 1, 1}, e)
 	for i := 1; i < 10; i++ {
-		if (e.location != Pt{i,1,1}) {
+		if (e.location != Pt{i, 1, 1}) {
 			t.Errorf("expected %d got %d", e.location.x, i)
 		}
 		e.Think()
