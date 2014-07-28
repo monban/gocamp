@@ -1,11 +1,16 @@
 package gocamp
 
 func CreateStaticEntity() Entitier {
+	se := createStaticEntity()
+	return Entitier(&se)
+}
+
+func createStaticEntity() staticEntity {
 	se := staticEntity{}
 	se.location = Pt{1, 1, 1}
 	se.cycles = 0
 	se.displayRune = '☺'
-	return Entitier(&se)
+	return se
 }
 
 type staticEntity struct {

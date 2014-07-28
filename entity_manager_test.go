@@ -6,10 +6,12 @@ func TestAddEntities(t *testing.T) {
 	em := CreateDefaultEntityManager()
 	e := CreateStaticEntity()
 	em.Add(&e)
-	if !em.Exists(e) {
+	if !em.Exists(&e) {
 		t.Errorf("entity did not get added to list")
 	}
-	if em.Exists(CreateStaticEntity()) {
+
+	new_se := CreateStaticEntity()
+	if em.Exists(&new_se) {
 		t.Errorf("newly created entity somehow ended up in the list")
 	}
 }

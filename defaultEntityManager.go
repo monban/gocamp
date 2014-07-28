@@ -6,16 +6,16 @@ func CreateDefaultEntityManager() EntityManager {
 }
 
 type defaultEntityManager struct {
-	entities []Entitier
+	entities []*Entitier
 }
 
 func (self *defaultEntityManager) Add(entity *Entitier) {
-	self.entities = append(self.entities, *entity)
+	self.entities = append(self.entities, entity)
 }
 
-func (self *defaultEntityManager) Exists(entity Entitier) bool {
+func (self *defaultEntityManager) Exists(entity *Entitier) bool {
 	for _, foo := range self.entities {
-		if entity == foo {
+		if *entity == *foo {
 			return true
 		}
 	}
@@ -24,10 +24,11 @@ func (self *defaultEntityManager) Exists(entity Entitier) bool {
 
 func (self *defaultEntityManager) Tick() {
 	for i, _ := range self.entities {
-		self.entities[i].Think()
+		entity := *self.entities[i]
+		entity.Think()
 	}
 }
 
-func (self *defaultEntityManager) All() []Entitier {
+func (self *defaultEntityManager) All() []*Entitier {
 	return self.entities
 }

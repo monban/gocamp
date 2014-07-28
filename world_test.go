@@ -3,12 +3,7 @@ package gocamp
 import "testing"
 
 func FactoryWorld() *defaultWorld {
-	w := new(defaultWorld)
-	w.terrain = createTerrain(4, 4, 1)
-	w.size_x = 4
-	w.size_y = 4
-	w.size_z = 1
-	return w
+	return createDefaultWorld(4, 4, 1)
 }
 
 func TestCreateWorld(t *testing.T) {
@@ -20,9 +15,9 @@ func TestCreateWorld(t *testing.T) {
 
 func TestEntitiesThink(t *testing.T) {
 	w := FactoryWorld()
-	e := staticEntity{}
+	e := createStaticEntity()
 	ei := Entitier(&e)
-	w.entities.Add(&ei)
+	w.AddEntity(&ei)
 	cycles := 32
 	for i := 0; i < cycles; i++ {
 		w.Tick()
@@ -36,7 +31,7 @@ func TestEntitiesThink(t *testing.T) {
 func TestGetEntireLevelAsRuneArray(t *testing.T) {
 	w := FactoryWorld()
 	e := CreateStaticEntity()
-	w.entities.Add(&e)
+	w.AddEntity(&e)
 	ra := w.GetEntireLevelAsRuneArray(1)
 	if ra[e.GetPosition().x][e.GetPosition().y] != e.DisplayRune() {
 		t.Errorf("entity should be displaying rune %v at %d,%d, found %v instead",
