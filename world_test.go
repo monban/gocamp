@@ -2,8 +2,13 @@ package gocamp
 
 import "testing"
 
-func FactoryWorld() *world {
-	return CreateWorld(4, 4, 1)
+func FactoryWorld() *defaultWorld {
+	w := new(defaultWorld)
+	w.terrain = createTerrain(4, 4, 1)
+	w.size_x = 4
+	w.size_y = 4
+	w.size_z = 1
+	return w
 }
 
 func TestCreateWorld(t *testing.T) {
@@ -15,8 +20,9 @@ func TestCreateWorld(t *testing.T) {
 
 func TestEntitiesThink(t *testing.T) {
 	w := FactoryWorld()
-	e := new(StaticEntity)
-	w.entities.Add(e)
+	e := staticEntity{}
+	ei := Entitier(&e)
+	w.entities.Add(&ei)
 	cycles := 32
 	for i := 0; i < cycles; i++ {
 		w.Tick()
@@ -29,11 +35,11 @@ func TestEntitiesThink(t *testing.T) {
 
 func TestGetEntireLevelAsRuneArray(t *testing.T) {
 	w := FactoryWorld()
-	e := CreateTestStaticEntity()
+	e := CreateStaticEntity()
 	w.entities.Add(&e)
 	ra := w.GetEntireLevelAsRuneArray(1)
-	if ra[e.location.x][e.location.y] != e.DisplayRune() {
+	if ra[e.GetPosition().x][e.GetPosition().y] != e.DisplayRune() {
 		t.Errorf("entity should be displaying rune %v at %d,%d, found %v instead",
-			e.DisplayRune(), e.location.x, e.location.y, ra[e.location.x][e.location.y])
+			e.DisplayRune(), e.GetPosition().x, e.GetPosition().y, ra[e.GetPosition().x][e.GetPosition().y])
 	}
 }

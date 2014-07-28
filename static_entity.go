@@ -1,27 +1,27 @@
 package gocamp
 
-func CreateTestStaticEntity() StaticEntity {
-	se := new(StaticEntity)
+func CreateStaticEntity() Entitier {
+	se := staticEntity{}
 	se.location = Pt{1, 1, 1}
 	se.cycles = 0
 	se.displayRune = '☺'
-	return *se
+	return Entitier(&se)
 }
 
-type StaticEntity struct {
+type staticEntity struct {
 	location    Pt
 	cycles      int
 	displayRune rune
 }
 
-func (self *StaticEntity) GetPosition() Pt {
+func (self *staticEntity) GetPosition() Pt {
 	return self.location
 }
 
-func (self *StaticEntity) Think() {
+func (self *staticEntity) Think() {
 	self.cycles++
 }
 
-func (self *StaticEntity) DisplayRune() rune {
+func (self *staticEntity) DisplayRune() rune {
 	return self.displayRune
 }

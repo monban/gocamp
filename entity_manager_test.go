@@ -3,30 +3,31 @@ package gocamp
 import "testing"
 
 func TestAddEntities(t *testing.T) {
-	em := new(EntityManager)
-	e := new(StaticEntity)
-	em.Add(e)
+	em := CreateDefaultEntityManager()
+	e := CreateStaticEntity()
+	em.Add(&e)
 	if !em.Exists(e) {
 		t.Errorf("entity did not get added to list")
 	}
-	if em.Exists(new(StaticEntity)) {
+	if em.Exists(CreateStaticEntity()) {
 		t.Errorf("newly created entity somehow ended up in the list")
 	}
 }
 
 func TestMakeLotsOfEntities(t *testing.T) {
 	const number int = 32
-	em := new(EntityManager)
+	em := CreateDefaultEntityManager()
 	for i := 0; i < number; i++ {
-		em.Add(new(StaticEntity))
+		e := CreateStaticEntity()
+		em.Add(&e)
 	}
-	if len(em.entities) != number {
-		t.Errorf("expected %d entities but got %d", number, len(em.entities))
+	if len(em.All()) != number {
+		t.Errorf("expected %d entities but got %d", number, len(em.All()))
 	}
 }
 
 func TestGetRune(t *testing.T) {
-	e := CreateTestStaticEntity()
+	e := staticEntity{}
 	if e.DisplayRune() != e.displayRune {
 		t.Errorf("expected %d got %d", e.displayRune, e.DisplayRune())
 	}
