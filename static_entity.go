@@ -30,3 +30,6 @@ func (self *staticEntity) Think() {
 func (self *staticEntity) DisplayRune() rune {
 	return self.displayRune
 }
+
+func (self *staticEntity) SetWorld(world *WorldRepresenter) {
+}

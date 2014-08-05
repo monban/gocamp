@@ -12,4 +12,7 @@ type Entitier interface {
 	// Represent yourself as a rune
 	// TODO: Need to make this more interface independant
 	DisplayRune() rune
+
+	// Hook up a world so the entitiy can look around
+	SetWorld(*WorldRepresenter)
 }

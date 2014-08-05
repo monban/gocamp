@@ -2,7 +2,7 @@ package gocamp
 
 func CreateDefaultWorld(size_x int, size_y int, size_z int) WorldRepresenter {
 	w := createDefaultWorld(size_x, size_y, size_z)
-	return WorldRepresenter(*w)
+	return WorldRepresenter(w)
 }
 
 func createDefaultWorld(size_x int, size_y int, size_z int) *defaultWorld {
@@ -46,4 +46,14 @@ func (self *defaultWorld) GetEntireLevelAsRuneArray(level int) [][]rune {
 
 func (self *defaultWorld) AddEntity(entity *Entitier) {
 	self.entities.Add(entity)
+	wr := WorldRepresenter(self)
+	(*entity).SetWorld(&wr)
+}
+
+func (self *defaultWorld) GetEntityManager() *EntityManager {
+	return &self.entities
+}
+
+func (self *defaultWorld) GetTerrain() *Terrain {
+	return self.terrain
 }
