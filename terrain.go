@@ -54,6 +54,16 @@ func (b *Block) ascii_representation() rune {
 	panic("invalid material found in bulk")
 }
 
+func (self *Block) Traversable() int {
+	switch self.bulk {
+	case void:
+		return 1
+	case air:
+		return 1
+	}
+	return 2
+}
+
 type Terrain struct {
 	size_x int
 	size_y int
@@ -157,6 +167,20 @@ func (self *Terrain) LevelAsRuneArray(level int) [][]rune {
 	for i := range output {
 		output[i] = runes[:self.trueSizeX()]
 		runes = runes[self.trueSizeX():]
+	}
+	return output
+}
+
+func (self *Terrain) TraversableMap(level int) [][]int {
+	output := make([][]int, self.trueSizeY())
+	plane, _ := self.getPlane(level)
+	tiles := make([]int, self.trueSizeY()*self.trueSizeX())
+	for i := range tiles {
+		tiles[i] = plane[i].Traversable()
+	}
+	for i := range output {
+		output[i] = tiles[:self.trueSizeX()]
+		tiles = tiles[self.trueSizeX():]
 	}
 	return output
 }

@@ -46,8 +46,7 @@ func (self *defaultWorld) GetEntireLevelAsRuneArray(level int) [][]rune {
 
 func (self *defaultWorld) AddEntity(entity Entitier) {
 	self.entities.Add(entity)
-	wr := WorldRepresenter(self)
-	entity.SetWorld(wr)
+	entity.SetWorld(self)
 }
 
 func (self *defaultWorld) EntityManager() EntityManager {
@@ -56,4 +55,8 @@ func (self *defaultWorld) EntityManager() EntityManager {
 
 func (self *defaultWorld) GetTerrain() *Terrain {
 	return self.terrain
+}
+
+func (self *defaultWorld) GetTraversableMap(z_level int) [][]int {
+	return self.terrain.TraversableMap(z_level)
 }
