@@ -56,8 +56,6 @@ func (b *Block) ascii_representation() rune {
 
 func (self *Block) Traversable() int {
 	switch self.bulk {
-	case void:
-		return 1
 	case air:
 		return 1
 	}
@@ -225,6 +223,18 @@ func (self *Terrain) fillPlane(z_level int, blok Block) {
 	for x := 0; x < self.size_x; x++ {
 		for y := 0; y < self.size_y; y++ {
 			self.setBlock(Pt{x, y, z_level}, blok)
+		}
+	}
+}
+
+func (self *Terrain) NewLine(blok Block, start Pt, length int, horizontal bool) {
+	pen := start
+	for i := 0; i < length; i++ {
+		self.setBlock(pen, blok)
+		if horizontal {
+			pen.x++
+		} else {
+			pen.y++
 		}
 	}
 }
