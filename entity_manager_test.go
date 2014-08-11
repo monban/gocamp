@@ -5,13 +5,13 @@ import "testing"
 func TestAddEntities(t *testing.T) {
 	em := CreateDefaultEntityManager()
 	e := CreateStaticEntity()
-	em.Add(&e)
-	if !em.Exists(&e) {
+	em.Add(e)
+	if !em.Exists(e) {
 		t.Errorf("entity did not get added to list")
 	}
 
 	new_se := CreateStaticEntity()
-	if em.Exists(&new_se) {
+	if em.Exists(new_se) {
 		t.Errorf("newly created entity somehow ended up in the list")
 	}
 }
@@ -21,7 +21,7 @@ func TestMakeLotsOfEntities(t *testing.T) {
 	em := CreateDefaultEntityManager()
 	for i := 0; i < number; i++ {
 		e := CreateStaticEntity()
-		em.Add(&e)
+		em.Add(e)
 	}
 	if len(em.All()) != number {
 		t.Errorf("expected %d entities but got %d", number, len(em.All()))

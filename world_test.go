@@ -17,7 +17,7 @@ func TestEntitiesThink(t *testing.T) {
 	w := FactoryWorld()
 	e := createStaticEntity()
 	ei := Entitier(&e)
-	w.AddEntity(&ei)
+	w.AddEntity(ei)
 	cycles := 32
 	for i := 0; i < cycles; i++ {
 		w.Tick()
@@ -31,7 +31,7 @@ func TestEntitiesThink(t *testing.T) {
 func TestGetEntireLevelAsRuneArray(t *testing.T) {
 	w := FactoryWorld()
 	e := CreateStaticEntity()
-	w.AddEntity(&e)
+	w.AddEntity(e)
 	ra := w.GetEntireLevelAsRuneArray(1)
 	if ra[e.GetPosition().x][e.GetPosition().y] != e.DisplayRune() {
 		t.Errorf("entity should be displaying rune %v at %d,%d, found %v instead",

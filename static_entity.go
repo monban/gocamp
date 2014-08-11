@@ -31,5 +31,5 @@ func (self *staticEntity) DisplayRune() rune {
 	return self.displayRune
 }
 
-func (self *staticEntity) SetWorld(world *WorldRepresenter) {
+func (self *staticEntity) SetWorld(world WorldRepresenter) {
 }

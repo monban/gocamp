@@ -2,7 +2,7 @@ package gocamp
 
 type WorldRepresenter interface {
 	GetTerrain() *Terrain
-	GetEntityManager() *EntityManager
+	EntityManager() EntityManager
 
 	// TODO: Implement TaskManager
 	//	GetTaskManager() *TaskManager

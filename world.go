@@ -35,7 +35,7 @@ func (self *defaultWorld) Tick() {
 func (self *defaultWorld) GetEntireLevelAsRuneArray(level int) [][]rune {
 	output := self.terrain.LevelAsRuneArray(level)
 	for i := range self.entities.All() {
-		e := *self.entities.All()[i]
+		e := self.entities.All()[i]
 		if e.GetPosition().z != level {
 			continue
 		}
@@ -44,14 +44,14 @@ func (self *defaultWorld) GetEntireLevelAsRuneArray(level int) [][]rune {
 	return output
 }
 
-func (self *defaultWorld) AddEntity(entity *Entitier) {
+func (self *defaultWorld) AddEntity(entity Entitier) {
 	self.entities.Add(entity)
 	wr := WorldRepresenter(self)
-	(*entity).SetWorld(&wr)
+	entity.SetWorld(wr)
 }
 
-func (self *defaultWorld) GetEntityManager() *EntityManager {
-	return &self.entities
+func (self *defaultWorld) EntityManager() EntityManager {
+	return self.entities
 }
 
 func (self *defaultWorld) GetTerrain() *Terrain {

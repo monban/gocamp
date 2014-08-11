@@ -30,7 +30,7 @@ func (self *WalkerEntity) DisplayRune() rune {
 	return '☺'
 }
 
-func (self *WalkerEntity) SetWorld(world *WorldRepresenter) {
+func (self *WalkerEntity) SetWorld(world WorldRepresenter) {
 }
 
 func (self *WalkerEntity) SetDestination(destination Pt) {

@@ -14,5 +14,5 @@ type Entitier interface {
 	DisplayRune() rune
 
 	// Hook up a world so the entitiy can look around
-	SetWorld(*WorldRepresenter)
+	SetWorld(WorldRepresenter)
 }
