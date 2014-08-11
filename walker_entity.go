@@ -18,7 +18,7 @@ type WalkerEntity struct {
 	location    Pt
 	cycles      int
 	destination Pt
-	path        []*astar.Node
+	path        []Pt
 	world       WorldRepresenter
 }
 
@@ -50,14 +50,17 @@ func (self *WalkerEntity) SetDestination(destination Pt) {
 
 func (self *WalkerEntity) pathfind() {
 	map_data := self.world.GetTraversableMap(self.location.z)
-	self.path = astar.Astar(map_data, self.location.x, self.location.y, self.destination.x, self.destination.y, false)
+	path := astar.Astar(map_data, self.location.x, self.location.y, self.destination.x, self.destination.y, false)
+	self.path = make([]Pt, len(path))
+	for i, node := range path {
+		self.path[i] = Pt{node.X, node.Y, self.location.y}
+	}
 }
 
 func (self *WalkerEntity) moveAlongPath() {
 	if len(self.path) == 0 {
 		return
 	}
-	next_location := self.path[0]
+	self.location = self.path[0]
 	self.path = self.path[1:len(self.path)]
-	self.location.x, self.location.y = next_location.X, next_location.Y
 }
