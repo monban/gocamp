@@ -34,13 +34,3 @@ func TestGetRune(t *testing.T) {
 		t.Errorf("expected %d got %d", e.displayRune, e.DisplayRune())
 	}
 }
-
-func TestWalker(t *testing.T) {
-	e := CreateWalkerEntity(Pt{1, 1, 1}, e)
-	for i := 1; i < 10; i++ {
-		if (e.location != Pt{i, 1, 1}) {
-			t.Errorf("expected %d got %d", e.location.x, i)
-		}
-		e.Think()
-	}
-}
