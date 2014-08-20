@@ -11,7 +11,7 @@ func TestWalker(t *testing.T) {
 	walker := createWalkerEntity()
 	walker.SetDestination(Pt{6, 6, 1})
 	em.Add(&walker)
-	walker.SetWorld(w) // HACK BUG FIXME: WE SHOULD NOT HAVE TO DO THIS
+	walker.SetWorld(&w) // HACK BUG FIXME: WE SHOULD NOT HAVE TO DO THIS
 	for walker.location != walker.destination {
 		w.Tick()
 		PrintRuneArray(w.GetEntireLevelAsRuneArray(1))

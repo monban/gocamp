@@ -2,7 +2,7 @@ package gocamp
 
 import "testing"
 
-func FactoryWorld() *defaultWorld {
+func FactoryWorld() defaultWorld {
 	return createDefaultWorld(4, 4, 1)
 }
 

@@ -2,10 +2,10 @@ package gocamp
 
 func CreateDefaultWorld(size_x int, size_y int, size_z int) WorldRepresenter {
 	w := createDefaultWorld(size_x, size_y, size_z)
-	return WorldRepresenter(w)
+	return WorldRepresenter(&w)
 }
 
-func createDefaultWorld(size_x int, size_y int, size_z int) *defaultWorld {
+func createDefaultWorld(size_x int, size_y int, size_z int) defaultWorld {
 	w := new(defaultWorld)
 	terrain := createTerrain(size_x, size_y, size_z)
 	w.terrain = &terrain
@@ -13,7 +13,7 @@ func createDefaultWorld(size_x int, size_y int, size_z int) *defaultWorld {
 	w.size_y = size_y
 	w.size_z = size_z
 	w.entities = CreateDefaultEntityManager()
-	return w
+	return *w
 }
 
 type defaultWorld struct {
