@@ -10,8 +10,13 @@ func TestWalker(t *testing.T) {
 	walker := createWalkerEntity()
 	walker.SetDestination(Pt{6, 6, 1})
 	w.AddEntity(&walker)
-	for walker.location != walker.destination {
+    for i := 0; i < 1000; i++ {
 		w.Tick()
-		PrintRuneArray(w.GetEntireLevelAsRuneArray(1))
+        if walker.location == walker.destination {
+            break;
+        }
 	}
+    if walker.location != walker.destination {
+        t.Error("walker never reached destination in 1000 steps")
+    }
 }
